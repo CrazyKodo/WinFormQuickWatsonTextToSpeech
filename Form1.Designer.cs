@@ -40,13 +40,17 @@
             this.labelOutputfolderPath = new System.Windows.Forms.Label();
             this.btnOutputFolder = new System.Windows.Forms.Button();
             this.fBDOutput = new System.Windows.Forms.FolderBrowserDialog();
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonGetVoiceList = new System.Windows.Forms.Button();
+            this.labelVoice = new System.Windows.Forms.Label();
+            this.cbVoice = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // labelApikey
             // 
             this.labelApikey.AutoSize = true;
             this.labelApikey.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelApikey.Location = new System.Drawing.Point(68, 51);
+            this.labelApikey.Location = new System.Drawing.Point(50, 27);
             this.labelApikey.Name = "labelApikey";
             this.labelApikey.Size = new System.Drawing.Size(46, 15);
             this.labelApikey.TabIndex = 0;
@@ -64,9 +68,9 @@
             // 
             // tbApikey
             // 
-            this.tbApikey.Location = new System.Drawing.Point(145, 48);
+            this.tbApikey.Location = new System.Drawing.Point(127, 24);
             this.tbApikey.Name = "tbApikey";
-            this.tbApikey.Size = new System.Drawing.Size(512, 21);
+            this.tbApikey.Size = new System.Drawing.Size(653, 21);
             this.tbApikey.TabIndex = 2;
             this.tbApikey.TextChanged += new System.EventHandler(this.tbApikey_TextChanged);
             // 
@@ -79,7 +83,7 @@
             this.tbText.Multiline = true;
             this.tbText.Name = "tbText";
             this.tbText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbText.Size = new System.Drawing.Size(661, 216);
+            this.tbText.Size = new System.Drawing.Size(896, 591);
             this.tbText.TabIndex = 3;
             this.tbText.TextChanged += new System.EventHandler(this.tbText_TextChanged);
             // 
@@ -87,7 +91,7 @@
             // 
             this.buttonRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRequest.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRequest.Location = new System.Drawing.Point(70, 413);
+            this.buttonRequest.Location = new System.Drawing.Point(70, 788);
             this.buttonRequest.Name = "buttonRequest";
             this.buttonRequest.Size = new System.Drawing.Size(75, 23);
             this.buttonRequest.TabIndex = 4;
@@ -97,9 +101,9 @@
             // 
             // tbUrl
             // 
-            this.tbUrl.Location = new System.Drawing.Point(145, 75);
+            this.tbUrl.Location = new System.Drawing.Point(127, 51);
             this.tbUrl.Name = "tbUrl";
-            this.tbUrl.Size = new System.Drawing.Size(512, 21);
+            this.tbUrl.Size = new System.Drawing.Size(653, 21);
             this.tbUrl.TabIndex = 6;
             this.tbUrl.TextChanged += new System.EventHandler(this.tbUrl_TextChanged);
             // 
@@ -107,7 +111,7 @@
             // 
             this.labelServiceUrl.AutoSize = true;
             this.labelServiceUrl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelServiceUrl.Location = new System.Drawing.Point(68, 78);
+            this.labelServiceUrl.Location = new System.Drawing.Point(50, 52);
             this.labelServiceUrl.Name = "labelServiceUrl";
             this.labelServiceUrl.Size = new System.Drawing.Size(62, 15);
             this.labelServiceUrl.TabIndex = 5;
@@ -115,7 +119,7 @@
             // 
             // tbFilename
             // 
-            this.tbFilename.Location = new System.Drawing.Point(175, 139);
+            this.tbFilename.Location = new System.Drawing.Point(153, 144);
             this.tbFilename.Name = "tbFilename";
             this.tbFilename.Size = new System.Drawing.Size(122, 21);
             this.tbFilename.TabIndex = 8;
@@ -125,7 +129,7 @@
             // 
             this.labelOutputFilename.AutoSize = true;
             this.labelOutputFilename.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOutputFilename.Location = new System.Drawing.Point(68, 142);
+            this.labelOutputFilename.Location = new System.Drawing.Point(50, 145);
             this.labelOutputFilename.Name = "labelOutputFilename";
             this.labelOutputFilename.Size = new System.Drawing.Size(97, 15);
             this.labelOutputFilename.TabIndex = 7;
@@ -135,7 +139,7 @@
             // 
             this.labelOutputfolderPath.AutoSize = true;
             this.labelOutputfolderPath.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOutputfolderPath.Location = new System.Drawing.Point(179, 106);
+            this.labelOutputfolderPath.Location = new System.Drawing.Point(172, 120);
             this.labelOutputfolderPath.Name = "labelOutputfolderPath";
             this.labelOutputfolderPath.Size = new System.Drawing.Size(10, 15);
             this.labelOutputfolderPath.TabIndex = 10;
@@ -144,7 +148,7 @@
             // btnOutputFolder
             // 
             this.btnOutputFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOutputFolder.Location = new System.Drawing.Point(70, 102);
+            this.btnOutputFolder.Location = new System.Drawing.Point(53, 116);
             this.btnOutputFolder.Name = "btnOutputFolder";
             this.btnOutputFolder.Size = new System.Drawing.Size(103, 23);
             this.btnOutputFolder.TabIndex = 9;
@@ -152,11 +156,54 @@
             this.btnOutputFolder.UseVisualStyleBackColor = true;
             this.btnOutputFolder.Click += new System.EventHandler(this.btnOutputFolder_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(50, 82);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 15);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Voice:";
+            // 
+            // buttonGetVoiceList
+            // 
+            this.buttonGetVoiceList.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGetVoiceList.Location = new System.Drawing.Point(376, 78);
+            this.buttonGetVoiceList.Name = "buttonGetVoiceList";
+            this.buttonGetVoiceList.Size = new System.Drawing.Size(115, 23);
+            this.buttonGetVoiceList.TabIndex = 12;
+            this.buttonGetVoiceList.Text = "Get voice list";
+            this.buttonGetVoiceList.UseVisualStyleBackColor = true;
+            this.buttonGetVoiceList.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // labelVoice
+            // 
+            this.labelVoice.AutoSize = true;
+            this.labelVoice.Location = new System.Drawing.Point(125, 84);
+            this.labelVoice.Name = "labelVoice";
+            this.labelVoice.Size = new System.Drawing.Size(41, 12);
+            this.labelVoice.TabIndex = 13;
+            this.labelVoice.Text = "label2";
+            // 
+            // cbVoice
+            // 
+            this.cbVoice.FormattingEnabled = true;
+            this.cbVoice.Location = new System.Drawing.Point(496, 81);
+            this.cbVoice.Name = "cbVoice";
+            this.cbVoice.Size = new System.Drawing.Size(284, 20);
+            this.cbVoice.TabIndex = 21;
+            this.cbVoice.SelectedIndexChanged += new System.EventHandler(this.cbVoice_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1035, 825);
+            this.Controls.Add(this.cbVoice);
+            this.Controls.Add(this.labelVoice);
+            this.Controls.Add(this.buttonGetVoiceList);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.labelOutputfolderPath);
             this.Controls.Add(this.btnOutputFolder);
             this.Controls.Add(this.tbFilename);
@@ -189,6 +236,10 @@
         private System.Windows.Forms.Label labelOutputfolderPath;
         private System.Windows.Forms.Button btnOutputFolder;
         private System.Windows.Forms.FolderBrowserDialog fBDOutput;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonGetVoiceList;
+        private System.Windows.Forms.Label labelVoice;
+        private System.Windows.Forms.ComboBox cbVoice;
     }
 }
 

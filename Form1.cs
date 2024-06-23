@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using IBM.Watson.TextToSpeech.v1;
 using static IBM.Watson.TextToSpeech.v1.TextToSpeechService.GetVoiceEnums;
 using System.IO;
+using IBM.Watson.TextToSpeech.v1.Model;
 
 namespace WinFormQuickWatsonTextToSpeech
 {
@@ -23,11 +24,13 @@ namespace WinFormQuickWatsonTextToSpeech
         private const string _outputPathSettingKey = "OutputPath";
         private const string _fileNameSettingKey = "Filename";
         private const string _textSettingKey = "Text";
+        private const string _voiceSettingKey = "Voice";
 
         private string _apikey;
         private string _serviceUrl;
         private string _outputPath;
         private string _fileName;
+        private string _voice;
         public Form1()
         {
             InitializeComponent();
@@ -61,18 +64,30 @@ namespace WinFormQuickWatsonTextToSpeech
                 this.tbText.Text = ConfigurationManager.AppSettings[_textSettingKey];
             }
 
+            if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings[_voiceSettingKey]))
+            {
+                _voice = ConfigurationManager.AppSettings[_voiceSettingKey];
+                this.labelVoice.Text = _voice;
+            }
+            else
+            {
+                _voice = VoiceValue.EN_US_EMMAEXPRESSIVE;
+            }
+
+            this.cbVoice.Enabled = false;
         }
 
         private void buttonRequest_Click(object sender, EventArgs e)
         {
             this.buttonRequest.Enabled = false;
-            IamAuthenticator authenticator = new IamAuthenticator(apikey: _apikey);
 
+            IamAuthenticator authenticator = new IamAuthenticator(apikey: _apikey);
             TextToSpeechService textToSpeech = new TextToSpeechService(authenticator);
             textToSpeech.SetServiceUrl(_serviceUrl);
             var text = this.tbText.Text;
             textToSpeech.Client.BaseClient.Timeout = TimeSpan.FromMinutes(10);
-            var responseMS = textToSpeech.Synthesize(text,voice: VoiceValue.EN_US_EMMAEXPRESSIVE, ratePercentage: -15);
+
+            var responseMS = textToSpeech.Synthesize(text,voice: _voice, ratePercentage: -15);
 
             var fileFullName = $"{_outputPath}\\{_fileName}";
             using (var ms = responseMS.Result)
@@ -125,6 +140,27 @@ namespace WinFormQuickWatsonTextToSpeech
         private void tbText_TextChanged(object sender, EventArgs e)
         {
             Helper.SaveAppSettings(_textSettingKey, tbText.Text);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            IamAuthenticator authenticator = new IamAuthenticator(apikey: _apikey);
+            TextToSpeechService textToSpeech = new TextToSpeechService(authenticator);
+            textToSpeech.SetServiceUrl(_serviceUrl); 
+            var result = textToSpeech.ListVoices();
+            var voiceList = result.Result;
+            var voices = voiceList._Voices.Select(v => v.Name).ToArray();
+            cbVoice.Enabled = true;
+            cbVoice.DataSource = voices;
+            cbVoice.SelectedIndex = Array.FindIndex(voices, x => x == _voice);
+
+        }
+
+        private void cbVoice_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _voice = cbVoice.SelectedValue.ToString();
+            this.labelVoice.Text = _voice;
+            Helper.SaveAppSettings(_voiceSettingKey, _voice);
         }
     }
 }
