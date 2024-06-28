@@ -224,7 +224,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(823, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(726, 100);
+            this.groupBox1.Size = new System.Drawing.Size(715, 137);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Concatenate wav files";
@@ -270,13 +270,12 @@
             // 
             // listBoxSelectedFiles
             // 
-            this.listBoxSelectedFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxSelectedFiles.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.listBoxSelectedFiles.FormattingEnabled = true;
             this.listBoxSelectedFiles.ItemHeight = 15;
-            this.listBoxSelectedFiles.Location = new System.Drawing.Point(3, 48);
+            this.listBoxSelectedFiles.Location = new System.Drawing.Point(3, 55);
             this.listBoxSelectedFiles.Name = "listBoxSelectedFiles";
-            this.listBoxSelectedFiles.Size = new System.Drawing.Size(712, 49);
+            this.listBoxSelectedFiles.Size = new System.Drawing.Size(709, 79);
             this.listBoxSelectedFiles.TabIndex = 11;
             // 
             // buttonSelectFiles
