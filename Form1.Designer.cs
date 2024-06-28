@@ -44,6 +44,17 @@
             this.buttonGetVoiceList = new System.Windows.Forms.Button();
             this.labelVoice = new System.Windows.Forms.Label();
             this.cbVoice = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.listBoxSelectedFiles = new System.Windows.Forms.ListBox();
+            this.buttonSelectFiles = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.tbConcatenateOutputName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.labelConcatOutputFolder = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelApikey
@@ -68,9 +79,10 @@
             // 
             // tbApikey
             // 
+            this.tbApikey.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbApikey.Location = new System.Drawing.Point(127, 24);
             this.tbApikey.Name = "tbApikey";
-            this.tbApikey.Size = new System.Drawing.Size(653, 21);
+            this.tbApikey.Size = new System.Drawing.Size(653, 23);
             this.tbApikey.TabIndex = 2;
             this.tbApikey.TextChanged += new System.EventHandler(this.tbApikey_TextChanged);
             // 
@@ -79,11 +91,12 @@
             this.tbText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbText.Location = new System.Drawing.Point(127, 180);
             this.tbText.Multiline = true;
             this.tbText.Name = "tbText";
             this.tbText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbText.Size = new System.Drawing.Size(896, 591);
+            this.tbText.Size = new System.Drawing.Size(1411, 591);
             this.tbText.TabIndex = 3;
             this.tbText.TextChanged += new System.EventHandler(this.tbText_TextChanged);
             // 
@@ -101,9 +114,10 @@
             // 
             // tbUrl
             // 
+            this.tbUrl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbUrl.Location = new System.Drawing.Point(127, 51);
             this.tbUrl.Name = "tbUrl";
-            this.tbUrl.Size = new System.Drawing.Size(653, 21);
+            this.tbUrl.Size = new System.Drawing.Size(653, 23);
             this.tbUrl.TabIndex = 6;
             this.tbUrl.TextChanged += new System.EventHandler(this.tbUrl_TextChanged);
             // 
@@ -119,9 +133,10 @@
             // 
             // tbFilename
             // 
+            this.tbFilename.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbFilename.Location = new System.Drawing.Point(153, 144);
             this.tbFilename.Name = "tbFilename";
-            this.tbFilename.Size = new System.Drawing.Size(122, 21);
+            this.tbFilename.Size = new System.Drawing.Size(122, 23);
             this.tbFilename.TabIndex = 8;
             this.tbFilename.TextChanged += new System.EventHandler(this.tbFilename_TextChanged);
             // 
@@ -195,11 +210,107 @@
             this.cbVoice.TabIndex = 21;
             this.cbVoice.SelectedIndexChanged += new System.EventHandler(this.cbVoice_SelectedIndexChanged);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.labelConcatOutputFolder);
+            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.tbConcatenateOutputName);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.listBoxSelectedFiles);
+            this.groupBox1.Controls.Add(this.buttonSelectFiles);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(823, 13);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(726, 100);
+            this.groupBox1.TabIndex = 22;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Concatenate wav files";
+            // 
+            // listBoxSelectedFiles
+            // 
+            this.listBoxSelectedFiles.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.listBoxSelectedFiles.FormattingEnabled = true;
+            this.listBoxSelectedFiles.ItemHeight = 15;
+            this.listBoxSelectedFiles.Location = new System.Drawing.Point(3, 48);
+            this.listBoxSelectedFiles.Name = "listBoxSelectedFiles";
+            this.listBoxSelectedFiles.Size = new System.Drawing.Size(720, 49);
+            this.listBoxSelectedFiles.TabIndex = 11;
+            // 
+            // buttonSelectFiles
+            // 
+            this.buttonSelectFiles.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSelectFiles.Location = new System.Drawing.Point(7, 22);
+            this.buttonSelectFiles.Name = "buttonSelectFiles";
+            this.buttonSelectFiles.Size = new System.Drawing.Size(75, 23);
+            this.buttonSelectFiles.TabIndex = 10;
+            this.buttonSelectFiles.Text = "Select files";
+            this.buttonSelectFiles.UseVisualStyleBackColor = true;
+            this.buttonSelectFiles.Click += new System.EventHandler(this.buttonSelectFiles_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(88, 22);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Process";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Wav Files Only (*.wav)|*.wav";
+            this.openFileDialog1.Multiselect = true;
+            // 
+            // tbConcatenateOutputName
+            // 
+            this.tbConcatenateOutputName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbConcatenateOutputName.Location = new System.Drawing.Point(268, 23);
+            this.tbConcatenateOutputName.Name = "tbConcatenateOutputName";
+            this.tbConcatenateOutputName.Size = new System.Drawing.Size(122, 23);
+            this.tbConcatenateOutputName.TabIndex = 13;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(165, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 15);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Output filename:";
+            // 
+            // labelConcatOutputFolder
+            // 
+            this.labelConcatOutputFolder.AutoSize = true;
+            this.labelConcatOutputFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelConcatOutputFolder.Location = new System.Drawing.Point(515, 26);
+            this.labelConcatOutputFolder.Name = "labelConcatOutputFolder";
+            this.labelConcatOutputFolder.Size = new System.Drawing.Size(10, 15);
+            this.labelConcatOutputFolder.TabIndex = 15;
+            this.labelConcatOutputFolder.Text = ":";
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(396, 22);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(103, 23);
+            this.button2.TabIndex = 14;
+            this.button2.Text = "Output folder";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1035, 825);
+            this.ClientSize = new System.Drawing.Size(1550, 825);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cbVoice);
             this.Controls.Add(this.labelVoice);
             this.Controls.Add(this.buttonGetVoiceList);
@@ -217,6 +328,8 @@
             this.Controls.Add(this.labelApikey);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -240,6 +353,16 @@
         private System.Windows.Forms.Button buttonGetVoiceList;
         private System.Windows.Forms.Label labelVoice;
         private System.Windows.Forms.ComboBox cbVoice;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonSelectFiles;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ListBox listBoxSelectedFiles;
+        private System.Windows.Forms.TextBox tbConcatenateOutputName;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelConcatOutputFolder;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }
 

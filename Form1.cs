@@ -14,6 +14,10 @@ using IBM.Watson.TextToSpeech.v1;
 using static IBM.Watson.TextToSpeech.v1.TextToSpeechService.GetVoiceEnums;
 using System.IO;
 using IBM.Watson.TextToSpeech.v1.Model;
+using NAudio.Wave;
+using System.Security;
+using NAudio.Wave.SampleProviders;
+using static System.Net.WebRequestMethods;
 
 namespace WinFormQuickWatsonTextToSpeech
 {
@@ -31,6 +35,8 @@ namespace WinFormQuickWatsonTextToSpeech
         private string _outputPath;
         private string _fileName;
         private string _voice;
+        private List<string> _selectedFiles = new List<string>();
+
         public Form1()
         {
             InitializeComponent();
@@ -85,9 +91,9 @@ namespace WinFormQuickWatsonTextToSpeech
             TextToSpeechService textToSpeech = new TextToSpeechService(authenticator);
             textToSpeech.SetServiceUrl(_serviceUrl);
             var text = this.tbText.Text;
-            textToSpeech.Client.BaseClient.Timeout = TimeSpan.FromMinutes(10);
+            textToSpeech.Client.BaseClient.Timeout = TimeSpan.FromMinutes(30);
 
-            var responseMS = textToSpeech.Synthesize(text,voice: _voice, ratePercentage: -15);
+            var responseMS = textToSpeech.Synthesize(text, accept:"audio/wav",voice: _voice, ratePercentage: -15);
 
             var fileFullName = $"{_outputPath}\\{_fileName}";
             using (var ms = responseMS.Result)
@@ -161,6 +167,86 @@ namespace WinFormQuickWatsonTextToSpeech
             _voice = cbVoice.SelectedValue.ToString();
             this.labelVoice.Text = _voice;
             Helper.SaveAppSettings(_voiceSettingKey, _voice);
+        }
+
+        public static void Concatenate(string outputFile, IEnumerable<string> sourceFiles)
+        {
+            byte[] buffer = new byte[1024];
+            WaveFileWriter waveFileWriter = null;
+
+            try
+            {
+                var sampleList = new List<ISampleProvider>();
+
+                foreach (string file in sourceFiles)
+                {
+                    sampleList.Add(new AudioFileReader(file));
+                }
+
+                WaveFileWriter.CreateWaveFile16(outputFile, new ConcatenatingSampleProvider(sampleList));
+            }
+            finally
+            {
+                if (waveFileWriter != null)
+                {
+                    waveFileWriter.Dispose();
+                }
+            }
+            System.Windows.Forms.MessageBox.Show("Done", "Message");
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (_selectedFiles.Count == 0)
+            {
+                System.Windows.Forms.MessageBox.Show("Select files first", "Message");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(tbConcatenateOutputName.Text))
+            {
+                System.Windows.Forms.MessageBox.Show("Provide an output filename", "Message");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(folderBrowserDialog1.SelectedPath))
+            {
+                System.Windows.Forms.MessageBox.Show("Select a folder first", "Message");
+                return;
+            }
+            Concatenate($"{folderBrowserDialog1.SelectedPath}{Path.DirectorySeparatorChar}{tbConcatenateOutputName.Text}", _selectedFiles);
+
+        }
+
+
+
+        private void buttonSelectFiles_Click(object sender, EventArgs e)
+        {
+            _selectedFiles.Clear();
+            this.listBoxSelectedFiles.Items.Clear();
+            DialogResult dr = this.openFileDialog1.ShowDialog();
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                // Read the files
+                foreach (string file in openFileDialog1.FileNames)
+                {
+                    _selectedFiles.Add(file);
+                    this.listBoxSelectedFiles.Items.Add(file);
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+
+            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog1.SelectedPath))
+            {
+              this.labelConcatOutputFolder.Text = folderBrowserDialog1.SelectedPath;
+                return;
+            }
+
+            this.labelConcatOutputFolder.Text = "Select a folder first";
         }
     }
 }
