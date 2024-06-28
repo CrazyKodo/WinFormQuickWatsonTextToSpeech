@@ -45,15 +45,15 @@
             this.labelVoice = new System.Windows.Forms.Label();
             this.cbVoice = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelConcatOutputFolder = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.tbConcatenateOutputName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.listBoxSelectedFiles = new System.Windows.Forms.ListBox();
             this.buttonSelectFiles = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.tbConcatenateOutputName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.labelConcatOutputFolder = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -229,14 +229,54 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Concatenate wav files";
             // 
+            // labelConcatOutputFolder
+            // 
+            this.labelConcatOutputFolder.AutoSize = true;
+            this.labelConcatOutputFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelConcatOutputFolder.Location = new System.Drawing.Point(515, 26);
+            this.labelConcatOutputFolder.Name = "labelConcatOutputFolder";
+            this.labelConcatOutputFolder.Size = new System.Drawing.Size(10, 15);
+            this.labelConcatOutputFolder.TabIndex = 15;
+            this.labelConcatOutputFolder.Text = ":";
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(396, 22);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(103, 23);
+            this.button2.TabIndex = 14;
+            this.button2.Text = "Output folder";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // tbConcatenateOutputName
+            // 
+            this.tbConcatenateOutputName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbConcatenateOutputName.Location = new System.Drawing.Point(268, 23);
+            this.tbConcatenateOutputName.Name = "tbConcatenateOutputName";
+            this.tbConcatenateOutputName.Size = new System.Drawing.Size(122, 23);
+            this.tbConcatenateOutputName.TabIndex = 13;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(165, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 15);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Output filename:";
+            // 
             // listBoxSelectedFiles
             // 
-            this.listBoxSelectedFiles.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.listBoxSelectedFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxSelectedFiles.FormattingEnabled = true;
             this.listBoxSelectedFiles.ItemHeight = 15;
             this.listBoxSelectedFiles.Location = new System.Drawing.Point(3, 48);
             this.listBoxSelectedFiles.Name = "listBoxSelectedFiles";
-            this.listBoxSelectedFiles.Size = new System.Drawing.Size(720, 49);
+            this.listBoxSelectedFiles.Size = new System.Drawing.Size(712, 49);
             this.listBoxSelectedFiles.TabIndex = 11;
             // 
             // buttonSelectFiles
@@ -265,45 +305,6 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Wav Files Only (*.wav)|*.wav";
             this.openFileDialog1.Multiselect = true;
-            // 
-            // tbConcatenateOutputName
-            // 
-            this.tbConcatenateOutputName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbConcatenateOutputName.Location = new System.Drawing.Point(268, 23);
-            this.tbConcatenateOutputName.Name = "tbConcatenateOutputName";
-            this.tbConcatenateOutputName.Size = new System.Drawing.Size(122, 23);
-            this.tbConcatenateOutputName.TabIndex = 13;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(165, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 15);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Output filename:";
-            // 
-            // labelConcatOutputFolder
-            // 
-            this.labelConcatOutputFolder.AutoSize = true;
-            this.labelConcatOutputFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConcatOutputFolder.Location = new System.Drawing.Point(515, 26);
-            this.labelConcatOutputFolder.Name = "labelConcatOutputFolder";
-            this.labelConcatOutputFolder.Size = new System.Drawing.Size(10, 15);
-            this.labelConcatOutputFolder.TabIndex = 15;
-            this.labelConcatOutputFolder.Text = ":";
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(396, 22);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(103, 23);
-            this.button2.TabIndex = 14;
-            this.button2.Text = "Output folder";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Form1
             // 
