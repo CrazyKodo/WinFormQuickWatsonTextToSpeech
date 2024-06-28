@@ -215,7 +215,6 @@ namespace WinFormQuickWatsonTextToSpeech
                 return;
             }
             Concatenate($"{folderBrowserDialog1.SelectedPath}{Path.DirectorySeparatorChar}{tbConcatenateOutputName.Text}", _selectedFiles);
-
         }
 
 
