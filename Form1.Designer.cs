@@ -195,7 +195,7 @@
             // labelVoice
             // 
             this.labelVoice.AutoSize = true;
-            this.labelVoice.Location = new System.Drawing.Point(125, 84);
+            this.labelVoice.Location = new System.Drawing.Point(125, 85);
             this.labelVoice.Name = "labelVoice";
             this.labelVoice.Size = new System.Drawing.Size(41, 12);
             this.labelVoice.TabIndex = 13;
