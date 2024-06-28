@@ -233,7 +233,7 @@
             // 
             this.labelConcatOutputFolder.AutoSize = true;
             this.labelConcatOutputFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConcatOutputFolder.Location = new System.Drawing.Point(515, 26);
+            this.labelConcatOutputFolder.Location = new System.Drawing.Point(505, 26);
             this.labelConcatOutputFolder.Name = "labelConcatOutputFolder";
             this.labelConcatOutputFolder.Size = new System.Drawing.Size(10, 15);
             this.labelConcatOutputFolder.TabIndex = 15;
