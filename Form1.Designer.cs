@@ -54,6 +54,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxPrefix = new System.Windows.Forms.TextBox();
+            this.textBoxTrailing = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,7 +75,7 @@
             // 
             this.labelText.AutoSize = true;
             this.labelText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelText.Location = new System.Drawing.Point(68, 180);
+            this.labelText.Location = new System.Drawing.Point(67, 248);
             this.labelText.Name = "labelText";
             this.labelText.Size = new System.Drawing.Size(31, 15);
             this.labelText.TabIndex = 1;
@@ -92,11 +96,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbText.Location = new System.Drawing.Point(127, 180);
+            this.tbText.Location = new System.Drawing.Point(127, 248);
             this.tbText.Multiline = true;
             this.tbText.Name = "tbText";
             this.tbText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbText.Size = new System.Drawing.Size(1411, 591);
+            this.tbText.Size = new System.Drawing.Size(1411, 485);
             this.tbText.TabIndex = 3;
             this.tbText.TextChanged += new System.EventHandler(this.tbText_TextChanged);
             // 
@@ -305,11 +309,61 @@
             this.openFileDialog1.Filter = "Wav Files Only (*.wav)|*.wav";
             this.openFileDialog1.Multiselect = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(70, 190);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(40, 15);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Prefix:";
+            // 
+            // textBoxPrefix
+            // 
+            this.textBoxPrefix.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPrefix.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPrefix.Location = new System.Drawing.Point(127, 187);
+            this.textBoxPrefix.Multiline = true;
+            this.textBoxPrefix.Name = "textBoxPrefix";
+            this.textBoxPrefix.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxPrefix.Size = new System.Drawing.Size(1408, 43);
+            this.textBoxPrefix.TabIndex = 24;
+            // 
+            // textBoxTrailing
+            // 
+            this.textBoxTrailing.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTrailing.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTrailing.Location = new System.Drawing.Point(130, 739);
+            this.textBoxTrailing.Multiline = true;
+            this.textBoxTrailing.Name = "textBoxTrailing";
+            this.textBoxTrailing.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxTrailing.Size = new System.Drawing.Size(1408, 43);
+            this.textBoxTrailing.TabIndex = 26;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(73, 742);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(48, 15);
+            this.label4.TabIndex = 25;
+            this.label4.Text = "Trailing:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1550, 825);
+            this.Controls.Add(this.textBoxTrailing);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBoxPrefix);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cbVoice);
             this.Controls.Add(this.labelVoice);
@@ -363,6 +417,10 @@
         private System.Windows.Forms.Label labelConcatOutputFolder;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxPrefix;
+        private System.Windows.Forms.TextBox textBoxTrailing;
+        private System.Windows.Forms.Label label4;
     }
 }
 

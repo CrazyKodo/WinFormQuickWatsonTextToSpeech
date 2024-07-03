@@ -29,6 +29,8 @@ namespace WinFormQuickWatsonTextToSpeech
         private const string _fileNameSettingKey = "Filename";
         private const string _textSettingKey = "Text";
         private const string _voiceSettingKey = "Voice";
+        private const string _prefixKey = "Prefix";
+        private const string _trailingKey = "Trailing";
 
         private string _apikey;
         private string _serviceUrl;
@@ -80,6 +82,15 @@ namespace WinFormQuickWatsonTextToSpeech
                 _voice = VoiceValue.EN_US_EMMAEXPRESSIVE;
             }
 
+            if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings[_prefixKey]))
+            {
+                this.textBoxPrefix.Text = ConfigurationManager.AppSettings[_prefixKey];
+            }
+
+            if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings[_trailingKey]))
+            {
+                this.textBoxTrailing.Text = ConfigurationManager.AppSettings[_trailingKey];
+            }
             this.cbVoice.Enabled = false;
         }
 
@@ -90,10 +101,10 @@ namespace WinFormQuickWatsonTextToSpeech
             IamAuthenticator authenticator = new IamAuthenticator(apikey: _apikey);
             TextToSpeechService textToSpeech = new TextToSpeechService(authenticator);
             textToSpeech.SetServiceUrl(_serviceUrl);
-            var text = this.tbText.Text;
+            var text = $"{this.textBoxPrefix.Text}{this.tbText.Text}{this.textBoxTrailing.Text}";
             textToSpeech.Client.BaseClient.Timeout = TimeSpan.FromMinutes(30);
 
-            var responseMS = textToSpeech.Synthesize(text, accept:"audio/wav",voice: _voice, ratePercentage: -15);
+            var responseMS = textToSpeech.Synthesize(text, accept: "audio/mp3", voice: _voice, ratePercentage: -15);
 
             var fileFullName = $"{_outputPath}\\{_fileName}";
             using (var ms = responseMS.Result)
