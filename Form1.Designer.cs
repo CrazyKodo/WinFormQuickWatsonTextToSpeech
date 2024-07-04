@@ -58,6 +58,8 @@
             this.textBoxPrefix = new System.Windows.Forms.TextBox();
             this.textBoxTrailing = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBoxOutput = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -306,7 +308,7 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "Wav Files Only (*.wav)|*.wav";
+            this.openFileDialog1.Filter = "MP3 files (*.mp3)|*.mp3|Wav Files Only (*.wav)|*.wav";
             this.openFileDialog1.Multiselect = true;
             // 
             // label3
@@ -331,6 +333,7 @@
             this.textBoxPrefix.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxPrefix.Size = new System.Drawing.Size(1408, 43);
             this.textBoxPrefix.TabIndex = 24;
+            this.textBoxPrefix.TextChanged += new System.EventHandler(this.textBoxPrefix_TextChanged);
             // 
             // textBoxTrailing
             // 
@@ -344,6 +347,7 @@
             this.textBoxTrailing.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxTrailing.Size = new System.Drawing.Size(1408, 43);
             this.textBoxTrailing.TabIndex = 26;
+            this.textBoxTrailing.TextChanged += new System.EventHandler(this.textBoxTrailing_TextChanged);
             // 
             // label4
             // 
@@ -355,11 +359,32 @@
             this.label4.TabIndex = 25;
             this.label4.Text = "Trailing:";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(309, 147);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(74, 15);
+            this.label5.TabIndex = 27;
+            this.label5.Text = "Output type:";
+            // 
+            // comboBoxOutput
+            // 
+            this.comboBoxOutput.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxOutput.FormattingEnabled = true;
+            this.comboBoxOutput.Location = new System.Drawing.Point(403, 144);
+            this.comboBoxOutput.Name = "comboBoxOutput";
+            this.comboBoxOutput.Size = new System.Drawing.Size(284, 23);
+            this.comboBoxOutput.TabIndex = 28;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1550, 825);
+            this.Controls.Add(this.comboBoxOutput);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxTrailing);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxPrefix);
@@ -421,6 +446,8 @@
         private System.Windows.Forms.TextBox textBoxPrefix;
         private System.Windows.Forms.TextBox textBoxTrailing;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBoxOutput;
     }
 }
 

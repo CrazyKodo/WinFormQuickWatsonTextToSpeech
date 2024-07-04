@@ -18,6 +18,9 @@ using NAudio.Wave;
 using System.Security;
 using NAudio.Wave.SampleProviders;
 using static System.Net.WebRequestMethods;
+using static IBM.Watson.TextToSpeech.v1.TextToSpeechService;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WinFormQuickWatsonTextToSpeech
 {
@@ -92,6 +95,10 @@ namespace WinFormQuickWatsonTextToSpeech
                 this.textBoxTrailing.Text = ConfigurationManager.AppSettings[_trailingKey];
             }
             this.cbVoice.Enabled = false;
+
+            this.comboBoxOutput.Items.Add(SynthesizeEnums.AcceptValue.AUDIO_WAV);
+            this.comboBoxOutput.Items.Add(SynthesizeEnums.AcceptValue.AUDIO_MP3);
+            this.comboBoxOutput.SelectedIndex = 0;
         }
 
         private void buttonRequest_Click(object sender, EventArgs e)
@@ -101,22 +108,57 @@ namespace WinFormQuickWatsonTextToSpeech
             IamAuthenticator authenticator = new IamAuthenticator(apikey: _apikey);
             TextToSpeechService textToSpeech = new TextToSpeechService(authenticator);
             textToSpeech.SetServiceUrl(_serviceUrl);
-            var text = $"{this.textBoxPrefix.Text}{this.tbText.Text}{this.textBoxTrailing.Text}";
-            textToSpeech.Client.BaseClient.Timeout = TimeSpan.FromMinutes(30);
-
-            var responseMS = textToSpeech.Synthesize(text, accept: "audio/mp3", voice: _voice, ratePercentage: -15);
-
+            textToSpeech.Client.BaseClient.Timeout = TimeSpan.FromMinutes(60);
             var fileFullName = $"{_outputPath}\\{_fileName}";
-            using (var ms = responseMS.Result)
-            using (FileStream file = new FileStream(fileFullName, FileMode.Create, System.IO.FileAccess.Write))
+            var remainText = this.tbText.Text;
+            var remainFullText = $"{this.textBoxPrefix.Text}{remainText}{this.textBoxTrailing.Text}";
+
+            if (remainFullText.Length < 1024*5)
             {
-                byte[] bytes = new byte[ms.Length];
-                ms.Read(bytes, 0, (int)ms.Length);
-                file.Write(bytes, 0, bytes.Length);
-                ms.Close();
+                var responseMS = textToSpeech.Synthesize(remainFullText, accept: this.comboBoxOutput.SelectedText, voice: _voice, ratePercentage: -15);
+
+                
+                using (var ms = responseMS.Result)
+                using (FileStream file = new FileStream(fileFullName, FileMode.Create, System.IO.FileAccess.Write))
+                {
+                    byte[] bytes = new byte[ms.Length];
+                    ms.Read(bytes, 0, (int)ms.Length);
+                    file.Write(bytes, 0, bytes.Length);
+                    ms.Close();
+                }
+                this.buttonRequest.Enabled = true;
+                System.Windows.Forms.MessageBox.Show("Done", "Message");
+                return;
             }
-            this.buttonRequest.Enabled = true;
+
+            var partsCount = 0;
+            do
+            {
+                partsCount++;
+                var tempText = remainText.Substring(0, 5000 - textBoxPrefix.TextLength - textBoxTrailing.TextLength);
+                var lastNewlineIndex = tempText.LastIndexOf("\n");
+                var currentbatch = $"{this.textBoxPrefix.Text}{remainText.Substring(0, lastNewlineIndex)}{this.textBoxTrailing.Text}";
+
+                var responseMS = textToSpeech.Synthesize(currentbatch, accept: this.comboBoxOutput.SelectedText, voice: _voice, ratePercentage: -15);
+
+                using (var ms = responseMS.Result)
+                using (FileStream file = new FileStream(fileFullName, FileMode.Append, System.IO.FileAccess.Write))
+                {
+                    byte[] bytes = new byte[ms.Length];
+                    ms.Read(bytes, 0, (int)ms.Length);
+                    file.Write(bytes, 0, bytes.Length);
+                    ms.Close();
+                }
+
+                remainText = remainText.Remove(0, lastNewlineIndex);
+                remainFullText = $"{this.textBoxPrefix.Text}{remainText}{this.textBoxTrailing.Text}";
+            }
+            while (remainFullText.Length >= 5000);
+
+
+           this.buttonRequest.Enabled = true;
             System.Windows.Forms.MessageBox.Show("Done", "Message");
+            return;
         }
 
         private void btnOutputFolder_Click(object sender, EventArgs e)
@@ -163,7 +205,7 @@ namespace WinFormQuickWatsonTextToSpeech
         {
             IamAuthenticator authenticator = new IamAuthenticator(apikey: _apikey);
             TextToSpeechService textToSpeech = new TextToSpeechService(authenticator);
-            textToSpeech.SetServiceUrl(_serviceUrl); 
+            textToSpeech.SetServiceUrl(_serviceUrl);
             var result = textToSpeech.ListVoices();
             var voiceList = result.Result;
             var voices = voiceList._Voices.Select(v => v.Name).ToArray();
@@ -206,6 +248,27 @@ namespace WinFormQuickWatsonTextToSpeech
             System.Windows.Forms.MessageBox.Show("Done", "Message");
         }
 
+        public static void ConcatenateMp3(string outputFile, IEnumerable<string> sourceFiles)
+        {
+            using (var fileStream = System.IO.File.Create(outputFile))
+            {
+                foreach (string file in sourceFiles)
+                {
+                    Mp3FileReader reader = new Mp3FileReader(file);
+                    if ((fileStream.Position == 0) && (reader.Id3v2Tag != null))
+                    {
+                        fileStream.Write(reader.Id3v2Tag.RawData, 0, reader.Id3v2Tag.RawData.Length);
+                    }
+                    Mp3Frame frame;
+                    while ((frame = reader.ReadNextFrame()) != null)
+                    {
+                        fileStream.Write(frame.RawData, 0, frame.RawData.Length);
+                    }
+                }
+            }
+            System.Windows.Forms.MessageBox.Show("Done", "Message");
+        }
+
         private void button1_Click_1(object sender, EventArgs e)
         {
             if (_selectedFiles.Count == 0)
@@ -225,7 +288,15 @@ namespace WinFormQuickWatsonTextToSpeech
                 System.Windows.Forms.MessageBox.Show("Select a folder first", "Message");
                 return;
             }
-            Concatenate($"{folderBrowserDialog1.SelectedPath}{Path.DirectorySeparatorChar}{tbConcatenateOutputName.Text}", _selectedFiles);
+
+            var outputFilePath = $"{folderBrowserDialog1.SelectedPath}{Path.DirectorySeparatorChar}{tbConcatenateOutputName.Text}";
+
+            if (_selectedFiles.All(f => f.EndsWith(".mp3")))
+            {
+                ConcatenateMp3(outputFilePath, _selectedFiles);
+                return;
+            }
+            Concatenate(outputFilePath, _selectedFiles);
         }
 
 
@@ -252,11 +323,21 @@ namespace WinFormQuickWatsonTextToSpeech
 
             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog1.SelectedPath))
             {
-              this.labelConcatOutputFolder.Text = folderBrowserDialog1.SelectedPath;
+                this.labelConcatOutputFolder.Text = folderBrowserDialog1.SelectedPath;
                 return;
             }
 
             this.labelConcatOutputFolder.Text = "Select a folder first";
+        }
+
+        private void textBoxPrefix_TextChanged(object sender, EventArgs e)
+        {
+            Helper.SaveAppSettings(_prefixKey, textBoxPrefix.Text);
+        }
+
+        private void textBoxTrailing_TextChanged(object sender, EventArgs e)
+        {
+            Helper.SaveAppSettings(_trailingKey, textBoxTrailing.Text);
         }
     }
 }
