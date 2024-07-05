@@ -60,7 +60,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxOutput = new System.Windows.Forms.ComboBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.labelSelectedFile = new System.Windows.Forms.Label();
+            this.textBoxConvertOutputName = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelApikey
@@ -77,7 +85,7 @@
             // 
             this.labelText.AutoSize = true;
             this.labelText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelText.Location = new System.Drawing.Point(67, 248);
+            this.labelText.Location = new System.Drawing.Point(67, 379);
             this.labelText.Name = "labelText";
             this.labelText.Size = new System.Drawing.Size(31, 15);
             this.labelText.TabIndex = 1;
@@ -98,11 +106,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbText.Location = new System.Drawing.Point(127, 248);
+            this.tbText.Location = new System.Drawing.Point(130, 268);
             this.tbText.Multiline = true;
             this.tbText.Name = "tbText";
             this.tbText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbText.Size = new System.Drawing.Size(1411, 485);
+            this.tbText.Size = new System.Drawing.Size(1420, 489);
             this.tbText.TabIndex = 3;
             this.tbText.TextChanged += new System.EventHandler(this.tbText_TextChanged);
             // 
@@ -110,7 +118,7 @@
             // 
             this.buttonRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRequest.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRequest.Location = new System.Drawing.Point(70, 788);
+            this.buttonRequest.Location = new System.Drawing.Point(70, 842);
             this.buttonRequest.Name = "buttonRequest";
             this.buttonRequest.Size = new System.Drawing.Size(75, 23);
             this.buttonRequest.TabIndex = 4;
@@ -230,7 +238,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(823, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(715, 137);
+            this.groupBox1.Size = new System.Drawing.Size(727, 126);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Concatenate wav files";
@@ -279,9 +287,9 @@
             this.listBoxSelectedFiles.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.listBoxSelectedFiles.FormattingEnabled = true;
             this.listBoxSelectedFiles.ItemHeight = 15;
-            this.listBoxSelectedFiles.Location = new System.Drawing.Point(3, 55);
+            this.listBoxSelectedFiles.Location = new System.Drawing.Point(3, 44);
             this.listBoxSelectedFiles.Name = "listBoxSelectedFiles";
-            this.listBoxSelectedFiles.Size = new System.Drawing.Size(709, 79);
+            this.listBoxSelectedFiles.Size = new System.Drawing.Size(721, 79);
             this.listBoxSelectedFiles.TabIndex = 11;
             // 
             // buttonSelectFiles
@@ -315,7 +323,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(70, 190);
+            this.label3.Location = new System.Drawing.Point(67, 210);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 15);
             this.label3.TabIndex = 23;
@@ -327,11 +335,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPrefix.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPrefix.Location = new System.Drawing.Point(127, 187);
+            this.textBoxPrefix.Location = new System.Drawing.Point(130, 207);
             this.textBoxPrefix.Multiline = true;
             this.textBoxPrefix.Name = "textBoxPrefix";
             this.textBoxPrefix.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxPrefix.Size = new System.Drawing.Size(1408, 43);
+            this.textBoxPrefix.Size = new System.Drawing.Size(1420, 55);
             this.textBoxPrefix.TabIndex = 24;
             this.textBoxPrefix.TextChanged += new System.EventHandler(this.textBoxPrefix_TextChanged);
             // 
@@ -341,11 +349,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTrailing.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTrailing.Location = new System.Drawing.Point(130, 739);
+            this.textBoxTrailing.Location = new System.Drawing.Point(130, 763);
             this.textBoxTrailing.Multiline = true;
             this.textBoxTrailing.Name = "textBoxTrailing";
             this.textBoxTrailing.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxTrailing.Size = new System.Drawing.Size(1408, 43);
+            this.textBoxTrailing.Size = new System.Drawing.Size(1420, 73);
             this.textBoxTrailing.TabIndex = 26;
             this.textBoxTrailing.TextChanged += new System.EventHandler(this.textBoxTrailing_TextChanged);
             // 
@@ -353,7 +361,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(73, 742);
+            this.label4.Location = new System.Drawing.Point(67, 766);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(48, 15);
             this.label4.TabIndex = 25;
@@ -378,11 +386,79 @@
             this.comboBoxOutput.Size = new System.Drawing.Size(284, 23);
             this.comboBoxOutput.TabIndex = 28;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.button4);
+            this.groupBox2.Controls.Add(this.textBoxConvertOutputName);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.labelSelectedFile);
+            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Location = new System.Drawing.Point(826, 144);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(709, 46);
+            this.groupBox2.TabIndex = 29;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Converting WAV to MP3";
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(6, 17);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 11;
+            this.button3.Text = "Select file";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // openFileDialog2
+            // 
+            this.openFileDialog2.FileName = "openFileDialog2";
+            this.openFileDialog2.Filter = "Wav Files Only (*.wav)|*.wav";
+            // 
+            // labelSelectedFile
+            // 
+            this.labelSelectedFile.AutoSize = true;
+            this.labelSelectedFile.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSelectedFile.Location = new System.Drawing.Point(87, 21);
+            this.labelSelectedFile.Name = "labelSelectedFile";
+            this.labelSelectedFile.Size = new System.Drawing.Size(0, 15);
+            this.labelSelectedFile.TabIndex = 16;
+            // 
+            // textBoxConvertOutputName
+            // 
+            this.textBoxConvertOutputName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxConvertOutputName.Location = new System.Drawing.Point(500, 13);
+            this.textBoxConvertOutputName.Name = "textBoxConvertOutputName";
+            this.textBoxConvertOutputName.Size = new System.Drawing.Size(122, 23);
+            this.textBoxConvertOutputName.TabIndex = 18;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(397, 16);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(97, 15);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Output filename:";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(628, 14);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 19;
+            this.button4.Text = "Process";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1550, 825);
+            this.ClientSize = new System.Drawing.Size(1562, 879);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.comboBoxOutput);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxTrailing);
@@ -409,6 +485,8 @@
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -448,6 +526,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxOutput;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label labelSelectedFile;
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox textBoxConvertOutputName;
+        private System.Windows.Forms.Label label6;
     }
 }
 

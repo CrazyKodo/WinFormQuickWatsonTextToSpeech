@@ -110,14 +110,15 @@ namespace WinFormQuickWatsonTextToSpeech
             textToSpeech.SetServiceUrl(_serviceUrl);
             textToSpeech.Client.BaseClient.Timeout = TimeSpan.FromMinutes(60);
             var fileFullName = $"{_outputPath}\\{_fileName}";
-            var remainText = this.tbText.Text;
+            var remainText = this.tbText.Text.EndsWith("\n") ? this.tbText.Text : this.tbText.Text + "\n";
             var remainFullText = $"{this.textBoxPrefix.Text}{remainText}{this.textBoxTrailing.Text}";
+            var outputFormat = comboBoxOutput.SelectedItem.ToString();
 
-            if (remainFullText.Length < 1024*5)
+            if (remainFullText.Length < 1000 * 5 - 400)
             {
-                var responseMS = textToSpeech.Synthesize(remainFullText, accept: this.comboBoxOutput.SelectedText, voice: _voice, ratePercentage: -15);
+                var responseMS = textToSpeech.Synthesize(remainFullText, accept: outputFormat, voice: _voice, ratePercentage: -15);
 
-                
+
                 using (var ms = responseMS.Result)
                 using (FileStream file = new FileStream(fileFullName, FileMode.Create, System.IO.FileAccess.Write))
                 {
@@ -131,34 +132,64 @@ namespace WinFormQuickWatsonTextToSpeech
                 return;
             }
 
-            var partsCount = 0;
+            var runCount = 0;
+            var tempFileList = new List<string>();
             do
             {
-                partsCount++;
-                var tempText = remainText.Substring(0, 5000 - textBoxPrefix.TextLength - textBoxTrailing.TextLength);
+                runCount++;
+                var tempFileName = runCount.ToString();
+                if (outputFormat == SynthesizeEnums.AcceptValue.AUDIO_WAV)
+                {
+                    tempFileName = tempFileName + ".wav";
+                }
+                else
+                {
+                    tempFileName = tempFileName + ".mp3";
+                }
+                var batchAllowedLength = 1000 * 5 - 400 - textBoxPrefix.TextLength - textBoxTrailing.TextLength;
+                var tempText = remainText.Substring(0, remainText.Length >= batchAllowedLength ? batchAllowedLength : remainText.Length);
                 var lastNewlineIndex = tempText.LastIndexOf("\n");
                 var currentbatch = $"{this.textBoxPrefix.Text}{remainText.Substring(0, lastNewlineIndex)}{this.textBoxTrailing.Text}";
 
-                var responseMS = textToSpeech.Synthesize(currentbatch, accept: this.comboBoxOutput.SelectedText, voice: _voice, ratePercentage: -15);
+                var responseMS = textToSpeech.Synthesize(currentbatch, accept: outputFormat, voice: _voice, ratePercentage: -15);
 
                 using (var ms = responseMS.Result)
-                using (FileStream file = new FileStream(fileFullName, FileMode.Append, System.IO.FileAccess.Write))
+                using (FileStream file = new FileStream(tempFileName, FileMode.Create, System.IO.FileAccess.Write))
                 {
                     byte[] bytes = new byte[ms.Length];
                     ms.Read(bytes, 0, (int)ms.Length);
                     file.Write(bytes, 0, bytes.Length);
                     ms.Close();
+                    tempFileList.Add(file.Name);
                 }
 
                 remainText = remainText.Remove(0, lastNewlineIndex);
-                remainFullText = $"{this.textBoxPrefix.Text}{remainText}{this.textBoxTrailing.Text}";
             }
-            while (remainFullText.Length >= 5000);
+            while (remainText.Length > 0 && remainText != "\n");
 
 
-           this.buttonRequest.Enabled = true;
-            System.Windows.Forms.MessageBox.Show("Done", "Message");
-            return;
+            this.buttonRequest.Enabled = true;
+            if (outputFormat == SynthesizeEnums.AcceptValue.AUDIO_WAV)
+            {
+                Concatenate(fileFullName, tempFileList);
+
+            }
+            else
+            {
+                ConcatenateMp3(fileFullName, tempFileList);
+            }
+
+            System.GC.Collect();
+            System.GC.WaitForPendingFinalizers();
+
+            foreach (var item in tempFileList)
+            {
+                if (System.IO.File.Exists(item))
+                {
+                    System.IO.File.Delete(item);
+                }
+            }
+
         }
 
         private void btnOutputFolder_Click(object sender, EventArgs e)
@@ -338,6 +369,40 @@ namespace WinFormQuickWatsonTextToSpeech
         private void textBoxTrailing_TextChanged(object sender, EventArgs e)
         {
             Helper.SaveAppSettings(_trailingKey, textBoxTrailing.Text);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog2.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            labelSelectedFile.Text = openFileDialog2.FileName;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(labelSelectedFile.Text) || string.IsNullOrWhiteSpace(textBoxConvertOutputName.Text))
+            {
+                System.Windows.Forms.MessageBox.Show("Select a file and set the output name first", "Message");
+                return;
+            }
+
+            var mp3FilePath = Path.Combine(Path.GetDirectoryName(labelSelectedFile.Text), $"{textBoxConvertOutputName.Text}.mp3");
+            using (var reader = new WaveFileReader(labelSelectedFile.Text))
+            {
+                try
+                {
+                    MediaFoundationEncoder.EncodeToMp3(reader, mp3FilePath);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            System.Windows.Forms.MessageBox.Show("Done", "Message");
         }
     }
 }
