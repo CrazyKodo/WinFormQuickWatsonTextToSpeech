@@ -1,26 +1,16 @@
 ﻿using IBM.Cloud.SDK.Core.Authentication.Iam;
-using IBM.Cloud.SDK.Core.Authentication;
+using IBM.Watson.TextToSpeech.v1;
+using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using IBM.Watson.TextToSpeech.v1;
-using static IBM.Watson.TextToSpeech.v1.TextToSpeechService.GetVoiceEnums;
 using System.IO;
-using IBM.Watson.TextToSpeech.v1.Model;
-using NAudio.Wave;
-using System.Security;
-using NAudio.Wave.SampleProviders;
-using static System.Net.WebRequestMethods;
+using System.Linq;
+using System.Windows.Forms;
 using static IBM.Watson.TextToSpeech.v1.TextToSpeechService;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Net.Mime.MediaTypeNames;
+using static IBM.Watson.TextToSpeech.v1.TextToSpeechService.GetVoiceEnums;
 
 namespace WinFormQuickWatsonTextToSpeech
 {
@@ -114,11 +104,12 @@ namespace WinFormQuickWatsonTextToSpeech
             var remainFullText = $"{this.textBoxPrefix.Text}{remainText}{this.textBoxTrailing.Text}";
             var outputFormat = comboBoxOutput.SelectedItem.ToString();
 
+            var startDatetime = DateTime.Now;
             if (remainFullText.Length < 1000 * 5 - 400)
             {
                 var responseMS = textToSpeech.Synthesize(remainFullText, accept: outputFormat, voice: _voice, ratePercentage: -15);
 
-
+                Console.WriteLine($"The request took {(DateTime.Now - startDatetime).TotalSeconds} secs");
                 using (var ms = responseMS.Result)
                 using (FileStream file = new FileStream(fileFullName, FileMode.Create, System.IO.FileAccess.Write))
                 {
@@ -137,15 +128,10 @@ namespace WinFormQuickWatsonTextToSpeech
             do
             {
                 runCount++;
-                var tempFileName = runCount.ToString();
-                if (outputFormat == SynthesizeEnums.AcceptValue.AUDIO_WAV)
-                {
-                    tempFileName = tempFileName + ".wav";
-                }
-                else
-                {
-                    tempFileName = tempFileName + ".mp3";
-                }
+                var tempFileName = $"{DateTime.Now.Millisecond}_{runCount.ToString()}";
+
+                tempFileName = outputFormat == SynthesizeEnums.AcceptValue.AUDIO_WAV ? tempFileName + ".wav" : tempFileName + ".mp3";
+
                 var batchAllowedLength = 1000 * 5 - 400 - textBoxPrefix.TextLength - textBoxTrailing.TextLength;
                 var tempText = remainText.Substring(0, remainText.Length >= batchAllowedLength ? batchAllowedLength : remainText.Length);
                 var lastNewlineIndex = tempText.LastIndexOf("\n");
