@@ -376,18 +376,24 @@ namespace WinFormQuickWatsonTextToSpeech
             }
 
             var mp3FilePath = Path.Combine(Path.GetDirectoryName(labelSelectedFile.Text), $"{textBoxConvertOutputName.Text}.mp3");
-            using (var reader = new WaveFileReader(labelSelectedFile.Text))
+
+            using (var stream = new FileStream(labelSelectedFile.Text, FileMode.Open))
             {
-                try
+                var waveFormat = WaveFormat.CreateMuLawFormat(8000, 1);
+                var sample = new RawSourceWaveStream(stream, waveFormat);
+
+                using (var reader = new WaveFileReader(sample))
                 {
-                    MediaFoundationEncoder.EncodeToMp3(reader, mp3FilePath);
-                }
-                catch (InvalidOperationException ex)
-                {
-                    Console.WriteLine(ex.Message);
+                    try
+                    {
+                        MediaFoundationEncoder.EncodeToMp3(reader, mp3FilePath);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
             }
-
             System.Windows.Forms.MessageBox.Show("Done", "Message");
         }
     }
